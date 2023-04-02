@@ -1,24 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectTodos } from 'redux/selectors';
 
-import {
-  Container,
-  Grid,
-  GridItem,
-  Header,
-  SearchForm,
-  Section,
-  Text,
-  Todo,
-} from 'components';
+import { Container, Header, SearchForm, Section, Text } from 'components';
+import { TodoList } from 'components/TodoList/TodoList';
 
 export const App = () => {
-  const [todos, setTodos] = useState(
-    () => JSON.parse(localStorage.getItem('todos')) || []
-  );
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  const todos = useSelector(selectTodos);
 
   // const addTodo = text => {
   //   const todo = {
@@ -33,9 +20,9 @@ export const App = () => {
   //   addTodo(data);
   // };
 
-  const deleteTodo = id => {
-    setTodos(prevState => prevState.filter(todo => todo.id !== id));
-  };
+  // const deleteTodo = id => {
+  //   setTodos(prevState => prevState.filter(todo => todo.id !== id));
+  // };
 
   return (
     <>
@@ -44,23 +31,11 @@ export const App = () => {
         <Container>
           <SearchForm />
 
-          {todos.length === 0 && (
+          {todos.length === 0 ? (
             <Text textAlign="center">There are no any todos ... </Text>
+          ) : (
+            <TodoList />
           )}
-
-          <Grid>
-            {todos.length > 0 &&
-              todos.map((todo, index) => (
-                <GridItem key={todo.id}>
-                  <Todo
-                    id={todo.id}
-                    text={todo.text}
-                    counter={index + 1}
-                    onClick={deleteTodo}
-                  />
-                </GridItem>
-              ))}
-          </Grid>
         </Container>
       </Section>
     </>
