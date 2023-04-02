@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
 
 import {
   Container,
@@ -21,18 +20,18 @@ export const App = () => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  const addTodo = text => {
-    const todo = {
-      id: nanoid(),
-      text,
-    };
+  // const addTodo = text => {
+  //   const todo = {
+  //     id: nanoid(),
+  //     text,
+  //   };
 
-    setTodos(prevState => [...prevState, todo]);
-  };
+  //   setTodos(prevState => [...prevState, todo]);
+  // };
 
-  const handleSubmit = data => {
-    addTodo(data);
-  };
+  // const handleSubmit = data => {
+  //   addTodo(data);
+  // };
 
   const deleteTodo = id => {
     setTodos(prevState => prevState.filter(todo => todo.id !== id));
@@ -43,7 +42,7 @@ export const App = () => {
       <Header />
       <Section>
         <Container>
-          <SearchForm onSubmit={handleSubmit} />
+          <SearchForm />
 
           {todos.length === 0 && (
             <Text textAlign="center">There are no any todos ... </Text>
